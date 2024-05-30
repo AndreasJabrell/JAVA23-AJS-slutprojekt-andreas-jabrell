@@ -4,7 +4,7 @@ import { assignmentsRef } from "../utils/firebaseConfig.js";
 
 import AssignmentCard from "./AssignmentCard.jsx";
 
-function ColumnContainer(users) {
+function ColumnContainer({loggedIn}) {
     //useState för assignments
     const [assignments, setAssignments] = useState([]);
     //hämtar assignments från databasen
@@ -22,16 +22,18 @@ function ColumnContainer(users) {
     useEffect( ()=>{ 
         fetch()
     }, [])
+
     //separerar och delar upp assignments beroende på status
     const toDoAssignments = assignments.filter(assignment => assignment.status === 'toDo');
     const inProgressAssignments = assignments.filter(assignment => assignment.status === 'inProgress');
     const doneAssignments = assignments.filter(assignment => assignment.status === 'done')
+    const underReviewAssignments = assignments.filter(assignment => assignment.status === 'underReview')
 
 
     //skapar containers beroende på status, mappar ut assignments
     return (
         <div id="mainContainer">
-            <div id="toDoCont" title="To do">
+            <div value='toDo'id="toDoCont" title="To do">
                 <h1>TO DO</h1>
                 {toDoAssignments.map(assignment => (
                     <AssignmentCard 
@@ -43,7 +45,7 @@ function ColumnContainer(users) {
                     />
                 ))} 
             </div>
-            <div id="inProgressCont" title="In progress">
+            <div value='inProgress' id="inProgressCont" title="In progress">
                 <h1>IN PROGRESS</h1>
                 {inProgressAssignments.map(assignment => (
                     <AssignmentCard
@@ -56,7 +58,7 @@ function ColumnContainer(users) {
                     />
                 ))}
             </div>
-            <div id="doneCont" title="Done">
+            <div value='done' id="doneCont" title="Done">
                 <h1>DONE</h1>
                 {doneAssignments.map(assignment => (
                     <AssignmentCard
@@ -69,6 +71,19 @@ function ColumnContainer(users) {
                     />
                 ))}
             </div>
+            {loggedIn && <div value='underReview' id="underReviewCont" title="Under Review">
+                <h1>UNDER REVIEW</h1>
+                {underReviewAssignments.map(assignment => (
+                    <AssignmentCard
+                        key={assignment.id}
+                        id={assignment.id}
+                        assignment={assignment.assignment}
+                        assigned={assignment.assigned}
+                        category={assignment.category}
+                        status={assignment.status}
+                    />
+                ))}
+            </div>}
         </div>
     );
 }

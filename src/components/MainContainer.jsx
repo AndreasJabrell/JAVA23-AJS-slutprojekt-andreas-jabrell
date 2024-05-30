@@ -1,27 +1,24 @@
 import ColumnContainer from "./ColumnContainer.jsx";
+import { useState, useEffect } from "react";
 
 function MainContainer() {
-//början till att hämta in användare dynamiskt från databasen, hanns inte med pga tidsbrist
-/* 
-    const [users, setUsers] = useState([]);
-
-    function fetchUsers(){
-        onValue(usersRef, snapshot =>{
-            const data = snapshot.val();
-            const userArray = Object.keys(data).map(key => ({
-                id: key,
-                ...data[key]
-            }))
-            setUsers(userArray)
-        })    
+    const[loggedIn, setLoggedIn] = useState(false)
+    function adminTrueFalse(event){
+        
+        event.preventDefault();
+        setLoggedIn(prevLoggedIn => !prevLoggedIn);
     }
-    
-    useEffect( ()=>{ 
-        fetchUsers()
-    }, []) */
 
-    return ( 
-        <ColumnContainer /* users={users} *//>
+    useEffect(() => {
+        console.log(loggedIn); // Detta kommer att köras varje gång loggedIn uppdateras
+    }, [loggedIn]);
+
+
+    return ( <div>
+        <ColumnContainer loggedIn={loggedIn}/>
+        <button id='adminKnapp' onClick={(event)=>adminTrueFalse(event)}>BYT FRÅN USER TILL ADMIN</button>
+        <p>admin är för tillfället {loggedIn ? "true" : "false"}</p>
+        </div>
     )
 
 }

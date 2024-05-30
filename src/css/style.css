@@ -34,6 +34,16 @@
     font-weight: lighter;
 }
 
+.cardDivRejected{
+    background-color: red;
+    width: 200px;
+    align-content: center;
+    height: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: "Permanent Marker", cursive;
+    font-weight: lighter;
+}
+
 .cardDiv:hover{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 30px 40px 0 rgba(0, 0, 0, 0.50);
     transition: box-shadow 0.3s ease-in-out;
@@ -67,6 +77,14 @@
     display: inline-block;
     /* height: fit-content; */
 }
+#underReviewCont{
+    background-color:lavender;
+    font-family: "Jersey 10", sans-serif;
+    width: 30%;
+    text-align: center;
+    display: inline-block;
+    /* height: fit-content; */
+}
 
 #inProgressCont > .cardDiv {
     margin-left: auto;
@@ -81,6 +99,12 @@
 }
 
 #toDoCont > .cardDiv {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+}
+#underReviewCont > .cardDiv {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
@@ -106,7 +130,7 @@
     font-size: 1rem;
     line-height: 23px;
     outline: none;
-    padding: .75rem;
+    
     text-decoration: none;
     transition: all 235ms ease-in-out;
     border-bottom-left-radius: 15px 255px;
@@ -117,7 +141,7 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: -5px;
   }
 
   .btn:hover {
@@ -128,3 +152,7 @@
   .btn:focus {
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   }
+
+#adminKnapp{
+    margin-top: 10px;
+}
