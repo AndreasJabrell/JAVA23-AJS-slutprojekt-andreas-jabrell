@@ -89,10 +89,12 @@ function AssignmentCard(assignments) {
     }
 
     const handleDragStart = (event, assignmentId) =>{
-        event.dataTransfer.setData('text', assignmentId.toString)
+        /* event.dataTransfer.setData('text', assignmentId.toString) */
+        console.log('drag start')
     }
     const handleDragEnd = (event) =>{
-        event.dataTransfer.clearData();
+        /* event.dataTransfer.clearData(); */
+        console.log('drag end')
     }
 
     return ( 
