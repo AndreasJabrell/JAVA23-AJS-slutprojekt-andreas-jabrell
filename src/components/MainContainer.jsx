@@ -2,15 +2,19 @@ import ColumnContainer from "./ColumnContainer.jsx";
 import { useState, useEffect } from "react";
 
 function MainContainer() {
+    //skapar boolean loggedIn där man kan kontrollera vem som är inloggad och vad man rättigheter till att göra(admin/user) 
+    //I detta fall så är man utloggad=user, inloggad = admin
     const[loggedIn, setLoggedIn] = useState(false)
+
+    //när man klickar så ändras loggedIn beroende på värdet den har just nu
     function adminTrueFalse(event){
-        
         event.preventDefault();
         setLoggedIn(prevLoggedIn => !prevLoggedIn);
     }
 
+    //skriver ut det aktuella värdet av loggedIn
     useEffect(() => {
-        console.log(loggedIn); // Detta kommer att köras varje gång loggedIn uppdateras
+        console.log(loggedIn);
     }, [loggedIn]);
 
 

@@ -7,7 +7,7 @@ export function App(){
 
 
     return ( <>
-        <Header assignmentsRef={assignmentsRef}/>
+        <Header/>
         <MainContainer/>
     </> )
 }

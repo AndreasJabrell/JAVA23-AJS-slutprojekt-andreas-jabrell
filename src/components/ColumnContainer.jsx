@@ -5,6 +5,7 @@ import { assignmentsRef } from "../utils/firebaseConfig.js";
 import AssignmentCard from "./AssignmentCard.jsx";
 
 function ColumnContainer({loggedIn}) {
+
     //useState för assignments
     const [assignments, setAssignments] = useState([]);
     //hämtar assignments från databasen

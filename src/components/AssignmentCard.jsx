@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 
 function AssignmentCard(assignments) {
 
-
     const [tempText, setTempText] = useState('');
-
+    //skulle användas för att ändra bakgrundsfärg på den assignment som skickas tillbaka av admin men funkar ej...
     const [cssClass, setCssClass] = useState('cardDiv');
+
     //deconstructar assignments och sätter variabler
     const{id, assigned, assignment, status, category} = assignments;
     const [selectValue, setSelectValue]= useState('');
@@ -20,8 +20,8 @@ function AssignmentCard(assignments) {
             return;}
         const assignmentToUpdateRef = ref(db, `/assignments/${assignmentId}`);
         try{
-        update(assignmentToUpdateRef, {assigned: selectValue, status: 'inProgress'});
-        console.log(selectValue + ' has been added to assignment' + assignmentId)
+            await update(assignmentToUpdateRef, {assigned: selectValue, status: 'inProgress'});
+            console.log(selectValue + ' has been added to assignment' + assignmentId)
         }catch(error){
             console.error('Error updating assignments:', error);
             alert('Error updating assignments, try again')
@@ -52,11 +52,12 @@ function AssignmentCard(assignments) {
             alert('Error updating assignments, try again')
         }
     }
-    //hanterar vid reject
+    //hantering av reject
     async function handleAssignmentReject(event, assignmentId, oldAssignment) {
         event.preventDefault();
         const assignmentToUpdateRef = ref(db, `/assignments/${assignmentId}`);
         try {
+            //vill få bakgrund eller textfärg röd för att verkligen visa här, därav cssClass och setCssClass längre upp
             await update(assignmentToUpdateRef, { status: 'inProgress', assignment: oldAssignment + ' ' + tempText });
             console.log(`Assignment with id ${assignmentId} successfully moved back to inProgress`);
         } catch (error) {
@@ -87,7 +88,21 @@ function AssignmentCard(assignments) {
         setTempText(event.target.value);
     }
 
-    return ( <div className='cardDiv'>
+    const handleDragStart = (event, assignmentId) =>{
+        event.dataTransfer.setData('text', assignmentId.toString)
+    }
+    const handleDragEnd = (event) =>{
+        event.dataTransfer.clearData();
+    }
+
+    return ( 
+        <div 
+            className='cardDiv' 
+            draggable
+            onDragStart={(event)=> handleDragStart(event, assignments.id)}
+            onDragEnd={handleDragEnd}
+            >
+
         <h4 >{assignments.assignment}</h4>
         <p>{assignments.category} - {assignments.assigned}</p>
         <p></p>
@@ -103,7 +118,7 @@ function AssignmentCard(assignments) {
                 <button className="btn">ASSIGN</button>
             </form>}
         {assignments.status === 'inProgress' &&
-        ( <button className="btn" onClick={(event) => handleAssignmentInProgress(event, assignments.id)}>DONE</button>
+        (<button className="btn" onClick={(event) => handleAssignmentInProgress(event, assignments.id)}>DONE</button>
             )}
         {assignments.status === 'done' && 
         (<button className="btn" onClick={(event) => handleAssignmentDone(event, assignments.id)}>REMOVE</button>

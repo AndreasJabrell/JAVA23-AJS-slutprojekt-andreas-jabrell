@@ -1,7 +1,8 @@
 import {update, push} from 'firebase/database';
+import { assignmentsRef } from '../utils/firebaseConfig';
 import { useState } from 'react';
 
-function Header({assignmentsRef}) {
+function Header() {
 
     //skapar variabler åt select och inputvärden
     const [selectValue, setSelectValue] = useState('');
