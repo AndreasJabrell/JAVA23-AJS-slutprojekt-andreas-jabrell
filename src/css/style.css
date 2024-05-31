@@ -11,7 +11,7 @@
 
 #rubrik{
     font-family: "Jersey 10", sans-serif;
-    font-size:60px;
+    font-size: 60px;
     text-align: center;
 }
 
@@ -24,6 +24,9 @@
     
 }
 
+.highlight-text {
+    color: red;
+}
 .cardDiv{
     background-color: white;
     width: 200px;

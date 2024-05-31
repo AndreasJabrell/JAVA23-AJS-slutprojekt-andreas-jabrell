@@ -6,9 +6,9 @@ import AssignmentCard from "./AssignmentCard.jsx";
 
 function ColumnContainer({loggedIn}) {
 
-    //useState för assignments
+    //hämtar och sätter assignments
     const [assignments, setAssignments] = useState([]);
-    //hämtar assignments från databasen
+    
     function fetch(){
         onValue(assignmentsRef, snapshot =>{
         const data = snapshot.val();
@@ -19,7 +19,7 @@ function ColumnContainer({loggedIn}) {
         setAssignments(assignmentsArray)
     }) 
     }
-    //uppdaterar utseendet vid ändringar i databasen
+    
     useEffect( ()=>{ 
         fetch()
     }, [])

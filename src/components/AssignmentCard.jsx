@@ -7,6 +7,7 @@ function AssignmentCard(assignments) {
     const [tempText, setTempText] = useState('');
     //skulle användas för att ändra bakgrundsfärg på den assignment som skickas tillbaka av admin men funkar ej...
     const [cssClass, setCssClass] = useState('cardDiv');
+    const [updatedAssignment, setUpdatedAssignment]= useState(assignments.assignment);
 
     //deconstructar assignments och sätter variabler
     const{id, assigned, assignment, status, category} = assignments;
@@ -57,8 +58,8 @@ function AssignmentCard(assignments) {
         event.preventDefault();
         const assignmentToUpdateRef = ref(db, `/assignments/${assignmentId}`);
         try {
-            //vill få bakgrund eller textfärg röd för att verkligen visa här, därav cssClass och setCssClass längre upp
-            await update(assignmentToUpdateRef, { status: 'inProgress', assignment: oldAssignment + ' ' + tempText });
+            const tempTextWithClass = `<span class="highlight-text">${tempText}</span>`;
+            await update(assignmentToUpdateRef, { status: 'inProgress', assignment: oldAssignment + ' ' + tempTextWithClass });
             console.log(`Assignment with id ${assignmentId} successfully moved back to inProgress`);
         } catch (error) {
             console.error('Error updating assignments:', error);
@@ -94,18 +95,17 @@ function AssignmentCard(assignments) {
     }
     const handleDragEnd = (event) =>{
         /* event.dataTransfer.clearData(); */
-        console.log('drag end')
+        console.log('drag')
     }
 
     return ( 
         <div 
-            className='cardDiv' 
+            className='cardDiv'
             draggable
             onDragStart={(event)=> handleDragStart(event, assignments.id)}
             onDragEnd={handleDragEnd}
             >
-
-        <h4 >{assignments.assignment}</h4>
+        <h4 dangerouslySetInnerHTML={{ __html: updatedAssignment }}></h4>
         <p>{assignments.category} - {assignments.assigned}</p>
         <p></p>
         {assignments.status === 'toDo' &&
