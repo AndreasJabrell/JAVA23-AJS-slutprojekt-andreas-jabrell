@@ -4,14 +4,12 @@ import { useState, useEffect } from "react";
 
 function AssignmentCard(assignments) {
 
-    const [tempText, setTempText] = useState('');
-    //skulle användas för att ändra bakgrundsfärg på den assignment som skickas tillbaka av admin men funkar ej...
-    const [cssClass, setCssClass] = useState('cardDiv');
+    let tempText = '';
     const [updatedAssignment, setUpdatedAssignment]= useState(assignments.assignment);
 
     //deconstructar assignments och sätter variabler
     const{id, assigned, assignment, status, category} = assignments;
-    const [selectValue, setSelectValue]= useState('');
+    let selectValue = '';
     
     //hanterar submit på toDo korten
     async function handleSubmit(event, assignmentId){
@@ -68,7 +66,7 @@ function AssignmentCard(assignments) {
     }
     //sparar värdet från select
     const handleSelectChange = (event) => {
-        setSelectValue(event.target.value);   
+        selectValue = event.target.value;   
     };
 
     //hanterar knappen på under review-korten, tar bort från databasen efter det blivit godkänt
@@ -86,24 +84,12 @@ function AssignmentCard(assignments) {
     }
 
     const handleInputChange = (event)=>{
-        setTempText(event.target.value);
-    }
-
-    const handleDragStart = (event, assignmentId) =>{
-        /* event.dataTransfer.setData('text', assignmentId.toString) */
-        console.log('drag start')
-    }
-    const handleDragEnd = (event) =>{
-        /* event.dataTransfer.clearData(); */
-        console.log('drag')
+        tempText = event.target.value;
     }
 
     return ( 
         <div 
             className='cardDiv'
-            draggable
-            onDragStart={(event)=> handleDragStart(event, assignments.id)}
-            onDragEnd={handleDragEnd}
             >
         <h4 dangerouslySetInnerHTML={{ __html: updatedAssignment }}></h4>
         <p>{assignments.category} - {assignments.assigned}</p>

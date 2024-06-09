@@ -5,15 +5,15 @@ import { useState } from 'react';
 function Header() {
 
     //skapar variabler åt select och inputvärden
-    const [selectValue, setSelectValue] = useState('');
-    const [tempText, setTempText] = useState('');
+    let selectValue = '';
+    let tempText = '';
 
     const handleSelectChange = (event) => {
-        setSelectValue (event.target.value);
+        selectValue = event.target.value;
     };
 
     function handleChange(event){
-        setTempText(event.target.value);
+        tempText = event.target.value;
     };
 
     //Skapar en ny assignment med unikt firebaseID
@@ -50,8 +50,8 @@ function Header() {
             alert('Error updating assignments, try again')
         }
 
-        setSelectValue('');
-        setTempText('');
+        selectValue = '';
+        tempText = '';
     }
 
     return ( 
